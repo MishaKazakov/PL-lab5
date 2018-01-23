@@ -60,7 +60,11 @@ fn min (a: f32, b: f32) -> f32{
 fn is_crossing(mut beam: Beam, seg: LineSegment) -> (bool, f32){
     let a1 = (beam.y1 - beam.y2) / (beam.x1 - beam.x2);
     let b1 = beam.y1 - a1 * beam.x1;
-    beam.new_x = max(seg.x1, seg.x2);
+    if beam.x2 - beam.x1 > 0{
+        beam.new_x = max(seg.x1, seg.x2);
+    } else {
+        beam.new_x = min(seg.x1, seg.x2);
+    }
     beam.new_y = beam.new_x * a1 + b1;
     let a2 = (seg.y1 - seg.y2) / (seg.x1 - seg.x2);
     let b2 = seg.y1 - a2 * seg.x1;
